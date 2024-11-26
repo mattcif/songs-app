@@ -1,6 +1,6 @@
 package com.mattcif.discos.dto.requestDto;
 
-import com.mattcif.discos.model.MusicalGenreEntity;
+import com.mattcif.discos.model.MusicalGenre;
 import com.mattcif.discos.model.TrackMusic;
 import lombok.Data;
 
@@ -14,6 +14,6 @@ public class DiscRequestDTO {
     private Year releaseYear;
     private String coverUrl;
     private List<TrackMusic> trackMusicList;
-    private List<MusicalGenreEntity> musicalGenreList;
+    private List<MusicalGenre> musicalGenreList;
 
 }

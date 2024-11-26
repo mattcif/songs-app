@@ -1,5 +1,9 @@
 package com.mattcif.discos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mattcif.discos.dto.requestDto.DiscRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class Disc {
 
     @Id
@@ -25,22 +31,12 @@ public class Disc {
 
     private String coverUrl;
 
-    @OneToMany(mappedBy = "disc", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "disc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrackMusic> trackMusicList;
-
-    @ManyToMany
-    @JoinTable(
-            name = "disc_genre",
-            joinColumns = @JoinColumn(name = "disc_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
-    @Enumerated(EnumType.STRING)
-    private List<MusicalGenreEntity> musicalGenreList;
 
     @ManyToOne
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    public Disc(DiscRequestDTO data) {
-    }
+
 }

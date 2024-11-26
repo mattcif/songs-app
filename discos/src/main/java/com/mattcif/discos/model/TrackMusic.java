@@ -1,8 +1,10 @@
 package com.mattcif.discos.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class TrackMusic {
 
     @Id
@@ -20,13 +23,14 @@ public class TrackMusic {
 
     @ManyToOne
     @JoinColumn(name = "disc_id")
+    @JsonIgnore
     private Disc disc;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "track_music_genre",
             joinColumns = @JoinColumn(name = "track_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private List<MusicalGenreEntity> trackMusicalGenreList;
+    private List<MusicalGenre> trackMusicalGenreList;
 }

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/disc")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class DiscController {
 
     @Autowired
